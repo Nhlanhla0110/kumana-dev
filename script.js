@@ -202,7 +202,7 @@
     for(const p of particles){
       stepParticle(p);
       drawParticle(p);
-    }
+  }
 
     requestAnimationFrame(tick);
   }
@@ -216,3 +216,36 @@
 
 // ================= SERVICES CAROUSEL =================
 // Now a native horizontally-scrollable strip (see .carousel-outer in style.css) — no JS needed.
+
+
+// ================= VISION — random photo-tile zoom =================
+// Every so often, one random tile in the background collage briefly zooms
+// in, giving the collage a subtle sense of life without any real photos yet.
+(function(){
+  const tiles = document.querySelectorAll('.photo-tile');
+  if(!tiles.length) return;
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(prefersReduced) return;
+
+  function randomZoom(){
+    // Remove zoom from all tiles
+    tiles.forEach(tile => tile.classList.remove('random-hover'));
+
+    // Pick a random tile
+    const randomIndex = Math.floor(Math.random() * tiles.length);
+    const tile = tiles[randomIndex];
+
+    // Add zoom
+    tile.classList.add('random-hover');
+
+    // Remove it after a random amount of time
+    const duration = Math.random() * 2000 + 1000; // 1-3 seconds
+    setTimeout(() => {
+      tile.classList.remove('random-hover');
+    }, duration);
+  }
+
+  // Trigger every 1.5 seconds
+  setInterval(randomZoom, 1500);
+})();
