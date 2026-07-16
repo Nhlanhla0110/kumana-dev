@@ -218,6 +218,118 @@
 // Now a native horizontally-scrollable strip (see .carousel-outer in style.css) — no JS needed.
 
 
+// ================= BECOME A CLIENT — MODAL FORM =================
+(function(){
+  const overlay  = document.getElementById('client-modal-overlay');
+  const openBtn  = document.getElementById('become-client-btn');
+  const closeBtn = document.getElementById('client-modal-close');
+  const form     = document.getElementById('client-form');
+  const status   = document.getElementById('cf-status');
+  if(!overlay || !openBtn || !form) return;
+
+  let lastFocused = null;
+
+  function openModal(){
+    lastFocused = document.activeElement;
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    const firstField = form.querySelector('#cf-name');
+    if(firstField) firstField.focus();
+  }
+
+  function closeModal(){
+    overlay.hidden = true;
+    document.body.style.overflow = '';
+    if(lastFocused) lastFocused.focus();
+  }
+
+  openBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e) => { if(e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape' && !overlay.hidden) closeModal();
+  });
+
+  // Single-select pill groups (project type, discipline)
+  const groups = form.querySelectorAll('.quick-picks[data-group]');
+  groups.forEach(group => {
+    group.addEventListener('click', (e) => {
+      const btn = e.target.closest('.quick-pick');
+      if(!btn) return;
+      group.querySelectorAll('.quick-pick').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+      group.dataset.selected = btn.dataset.value;
+    });
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name       = form.querySelector('#cf-name').value.trim();
+    const surname    = form.querySelector('#cf-surname').value.trim();
+    const email      = form.querySelector('#cf-email').value.trim();
+    const whatsapp   = form.querySelector('#cf-whatsapp').value.trim();
+    const location   = form.querySelector('#cf-location').value;
+    const projectType = form.querySelector('[data-group="project-type"]').dataset.selected || '';
+    const discipline  = form.querySelector('[data-group="discipline"]').dataset.selected || '';
+
+    if(!name || !surname || !email || !whatsapp || !location || !projectType || !discipline){
+      status.textContent = 'Please fill in every field, and pick a project type and discipline, before sending.';
+      status.className = 'form-status err';
+      return;
+    }
+
+    const submitBtn = form.querySelector('.form-submit');
+    submitBtn.disabled = true;
+    status.textContent = 'Sending…';
+    status.className = 'form-status';
+
+    const fd = new FormData();
+    fd.append('name', `${name} ${surname}`);
+    fd.append('email', email);
+    fd.append('whatsapp', whatsapp);
+    fd.append('project_type', projectType);
+    fd.append('discipline', discipline);
+    fd.append('location', location);
+    fd.append('_subject', `New client enquiry — ${projectType}`);
+
+    fetch('https://formspree.io/f/mkodolvd', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: fd
+    })
+      .then(res => {
+        if(res.ok){
+          status.textContent = 'Thanks — your enquiry has been sent. We\'ll be in touch soon.';
+          status.className = 'form-status ok';
+          form.reset();
+          groups.forEach(g => {
+            g.querySelectorAll('.quick-pick').forEach(b => {
+              b.classList.remove('active');
+              b.setAttribute('aria-pressed', 'false');
+            });
+            delete g.dataset.selected;
+          });
+        } else {
+          status.textContent = 'Something went wrong sending your enquiry. Please try again or email us directly.';
+          status.className = 'form-status err';
+        }
+      })
+      .catch(() => {
+        status.textContent = 'Something went wrong sending your enquiry. Please try again or email us directly.';
+        status.className = 'form-status err';
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+      });
+  });
+})();
+
+
 // ================= VISION — random photo-tile zoom =================
 // Every so often, one random tile in the background collage briefly zooms
 // in, giving the collage a subtle sense of life without any real photos yet.
@@ -249,4 +361,4 @@
   // Trigger every 1.5 seconds
   setInterval(randomZoom, 1500);
 })();
- 
+  

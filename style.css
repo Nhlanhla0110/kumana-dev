@@ -509,6 +509,40 @@
   }
   .quick-pick:hover, .quick-pick.active{ border-color:var(--rust-bright); color:var(--rust-bright); }
 
+  /* ================= BECOME A CLIENT — MODAL ================= */
+  .modal-overlay{
+    position:fixed; inset:0; z-index:200;
+    background:rgba(18,17,16,0.86);
+    display:flex; align-items:center; justify-content:center;
+    padding:var(--space-s);
+    animation:modalFade .2s ease;
+  }
+  .modal-overlay[hidden]{ display:none; }
+  @keyframes modalFade{ from{ opacity:0; } to{ opacity:1; } }
+  .modal-dialog{
+    position:relative;
+    background:var(--charcoal);
+    border:1px solid var(--line);
+    width:100%; max-width:640px;
+    max-height:88svh; overflow-y:auto;
+    padding:var(--space-m);
+  }
+  @media (max-width:600px){ .modal-dialog{ padding:var(--space-s); } }
+  .modal-title{ font-size:clamp(1.5rem, 1.2rem + 1.5vw, 2.1rem); }
+  .modal-close{
+    position:absolute; top:var(--space-s); right:var(--space-s);
+    width:2rem; height:2rem;
+    display:flex; align-items:center; justify-content:center;
+    background:transparent; border:1px solid var(--line);
+    color:var(--stone-dim);
+    font-size:1.3rem; line-height:1;
+    cursor:pointer;
+    transition:color .2s ease, border-color .2s ease;
+  }
+  .modal-close:hover{ color:var(--rust-bright); border-color:var(--rust-bright); }
+  .modal-dialog .form-field:last-of-type,
+  .modal-dialog form > .form-field{ margin-bottom:var(--space-s); }
+
   /* ================= MANIFESTO — bold pop panel ================= */
   .manifesto{
     position:relative;
@@ -676,4 +710,4 @@
     .photo-tile{ transition:none; }
     .photo-tile.random-hover{ transform:none; filter:none; }
   }
- 
+  

@@ -133,12 +133,12 @@
           </div>
         </div>
 
-        <div class="svc-card" style="--card-bg: url('images/urb-bg.jpg')">
+        <div class="svc-card" style="--card-bg: url('images/spd-bg.jpg')">
           <div class="svc-card-inner">
-            <span class="code">URB</span>
-            <h3>Urban &amp; Public Space Thinking</h3>
-            <p>We help imagine places that serve people, movement, memory, and community. From precinct concepts to public realm ideas, we think about how space shapes civic life.</p>
-            <a class="svc-link" href="work/urban.html">Explore work →</a>
+            <span class="code">SPD</span>
+            <h3>Spatial Experience Design</h3>
+            <p>We design commercial and hospitality environments that bring brands to life through space. From cafés, restaurants, consulting rooms, reception areas, retail, and workplace interiors, we create spaces that are functional, memorable, and centred on the people who use them.</p>
+            <a class="svc-link" href="work/spatial-experience.html">Explore work →</a>
           </div>
         </div>
 
@@ -148,6 +148,15 @@
             <h3>Event Space Design</h3>
             <p>We design environments for conferences, launches, cultural gatherings, exhibitions, and staged experiences. These are not just backdrops - they are spaces that carry the message.</p>
             <a class="svc-link" href="work/events.html">Explore work →</a>
+          </div>
+        </div>
+
+        <div class="svc-card" style="--card-bg: url('images/urb-bg.jpg')">
+          <div class="svc-card-inner">
+            <span class="code">URB</span>
+            <h3>Urban &amp; Public Space Thinking</h3>
+            <p>We help imagine places that serve people, movement, memory, and community. From precinct concepts to public realm ideas, we think about how space shapes civic life.</p>
+            <a class="svc-link" href="work/urban.html">Explore work →</a>
           </div>
         </div>
 
@@ -166,15 +175,6 @@
             <h3>Furniture, Objects &amp; Installations</h3>
             <p>We explore smaller-scale design through objects, furniture, and installations that extend the language of architecture into everyday life.</p>
             <a class="svc-link" href="work/objects.html">Explore work →</a>
-          </div>
-        </div>
-
-        <div class="svc-card" style="--card-bg: url('images/spd-bg.jpg')">
-          <div class="svc-card-inner">
-            <span class="code">SPD</span>
-            <h3>Spatial Experience Design</h3>
-            <p>We design commercial and hospitality environments that bring brands to life through space. From cafés, restaurants, consulting rooms, reception areas, retail, and workplace interiors, we create spaces that are functional, memorable, and centred on the people who use them.</p>
-            <a class="svc-link" href="work/spatial-experience.html">Explore work →</a>
           </div>
         </div>
 
@@ -288,7 +288,7 @@
         <h2>Let's build something worth telling.</h2>
         <p style="color:var(--stone-dim); max-width:44ch; margin-top:0.8rem;">Pick the option that fits - it opens your own email app with the right person already in the "to" field and the subject filled in. You write the message.</p>
         <div class="cta-row" style="margin-top:var(--space-s); flex-direction:column; align-items:flex-start;">
-          <a class="cta-btn" href="mailto:clients@kumana.studio?subject=I%20want%20to%20become%20a%20client">I want to become a client</a>
+          <button type="button" class="cta-btn" id="become-client-btn">I want to become a client</button>
           <a class="cta-btn ghost" href="mailto:queries@kumana.studio?subject=I%20just%20have%20a%20question">I just have a question</a>
         </div>
       </div>
@@ -310,6 +310,80 @@
     </div>
   </footer>
 
+  <!-- BECOME A CLIENT — MODAL FORM -->
+  <div class="modal-overlay" id="client-modal-overlay" hidden>
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="client-modal-title">
+      <button type="button" class="modal-close" id="client-modal-close" aria-label="Close form">&times;</button>
+      <span class="label">New enquiry</span>
+      <h2 id="client-modal-title" class="section-title modal-title">Tell us about your project.</h2>
+      <p style="color:var(--stone-dim); max-width:52ch; margin-bottom:var(--space-m);">Fill this in and it opens your email app with everything already written up - check it over and hit send.</p>
+
+      <form id="client-form" novalidate>
+        <div class="form-row-2">
+          <div class="form-field">
+            <label for="cf-name">Name</label>
+            <input type="text" id="cf-name" name="name" autocomplete="given-name" required>
+          </div>
+          <div class="form-field">
+            <label for="cf-surname">Surname</label>
+            <input type="text" id="cf-surname" name="surname" autocomplete="family-name" required>
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-field">
+            <label for="cf-email">Email</label>
+            <input type="email" id="cf-email" name="email" autocomplete="email" required>
+          </div>
+          <div class="form-field">
+            <label for="cf-whatsapp">WhatsApp number</label>
+            <input type="tel" id="cf-whatsapp" name="whatsapp" placeholder="+27 XX XXX XXXX" autocomplete="tel" required>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label id="cf-project-type-label">Project type</label>
+          <div class="quick-picks" data-group="project-type" role="group" aria-labelledby="cf-project-type-label">
+            <button type="button" class="quick-pick" data-value="New Build" aria-pressed="false">New Build</button>
+            <button type="button" class="quick-pick" data-value="Addition / Renovation" aria-pressed="false">Addition / Renovation</button>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label id="cf-discipline-label">Discipline</label>
+          <div class="quick-picks" data-group="discipline" role="group" aria-labelledby="cf-discipline-label">
+            <button type="button" class="quick-pick" data-value="Architecture &amp; Spatial Design" aria-pressed="false">Architecture &amp; Spatial Design</button>
+            <button type="button" class="quick-pick" data-value="Spatial Experience Design" aria-pressed="false">Spatial Experience Design</button>
+            <button type="button" class="quick-pick" data-value="Event Space Design" aria-pressed="false">Event Space Design</button>
+            <button type="button" class="quick-pick" data-value="Urban &amp; Public Space Thinking" aria-pressed="false">Urban &amp; Public Space Thinking</button>
+            <button type="button" class="quick-pick" data-value="Creative Direction &amp; Concept Design" aria-pressed="false">Creative Direction &amp; Concept Design</button>
+            <button type="button" class="quick-pick" data-value="Furniture, Objects &amp; Installations" aria-pressed="false">Furniture, Objects &amp; Installations</button>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="cf-location">Project location</label>
+          <select id="cf-location" name="location" required>
+            <option value="" disabled selected>Select a province</option>
+            <option>Eastern Cape</option>
+            <option>Free State</option>
+            <option>Gauteng</option>
+            <option>KwaZulu-Natal</option>
+            <option>Limpopo</option>
+            <option>Mpumalanga</option>
+            <option>North West</option>
+            <option>Northern Cape</option>
+            <option>Western Cape</option>
+            <option>Outside South Africa</option>
+          </select>
+        </div>
+
+        <button type="submit" class="form-submit">Send enquiry →</button>
+        <p class="form-status" id="cf-status" role="status"></p>
+      </form>
+    </div>
+  </div>
+
 </main>
 
 <script src="script.js"></script>
@@ -317,4 +391,4 @@
 
 </body>
 </html>
-  
+   
