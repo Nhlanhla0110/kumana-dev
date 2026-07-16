@@ -249,3 +249,4 @@
   // Trigger every 1.5 seconds
   setInterval(randomZoom, 1500);
 })();
+ 
